@@ -1,0 +1,19 @@
+## Start command ##
+systemctl start apache2.service
+
+## Stop command ##
+systemctl stop apache2.service
+
+## Restart command ##
+systemctl restart apache2.service
+
+> sudo service apache2 start | stop | status | restart
+
+
+## Files on
+> /var/www/html
+
+<?php phpinfo(); ?> >> t.php
+
+localhost/t.php
+localhost/oop.php
