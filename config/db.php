@@ -10,7 +10,6 @@
  * 
  * http://localhost/php_anti_storm/config/db.php
  * 
- * sudo ln -s /etc/nginx/sites-available/file /etc/nginx/sites-enabled/
  */
  
 // define a set of named constant
