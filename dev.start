@@ -1,3 +1,11 @@
+# move this folder into
+sudo cp -r php_anti_storm/ /var/www/html
+sudo chown -R $USER:$USER php_anti_storm
+
+# now you can open this file into any code editor without
+# problems for sudo credentials after editions.
+
+## php
 ## Start command ##
 systemctl start apache2.service
 
@@ -7,8 +15,7 @@ systemctl stop apache2.service
 ## Restart command ##
 systemctl restart apache2.service
 
-> sudo service apache2 start | stop | status | restart
-
+sudo service apache2 start | stop | status | restart
 
 ## Files on
 > /var/www/html
@@ -17,3 +24,14 @@ systemctl restart apache2.service
 
 localhost/t.php
 localhost/oop.php
+
+
+# postgres php
+sudo apt-get install php-pgsql
+/etc/php/7.4/mods-available/pgsql.ini
+
+
+# postgres
+psql -d postgres -h domain -p port -U user -W
+\c p2p # conecting into this db
+

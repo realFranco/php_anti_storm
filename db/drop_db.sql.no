@@ -1,0 +1,16 @@
+ALTER TABLE Daily_Limit DROP CONSTRAINT acc_have_daily_lim;
+
+ALTER TABLE Bank_Acc DROP CONSTRAINT have_acc;
+
+ALTER TABLE "Transaction" DROP CONSTRAINT make_transcation;
+
+ALTER TABLE "Transaction" DROP CONSTRAINT recieve_transcation;
+
+DROP TABLE IF EXISTS Bank_Acc CASCADE;
+
+DROP TABLE IF EXISTS Daily_Limit CASCADE;
+
+DROP TABLE IF EXISTS "Transaction" CASCADE;
+
+DROP TABLE IF EXISTS "User" CASCADE;
+

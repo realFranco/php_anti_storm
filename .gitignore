@@ -1,0 +1,7 @@
+# Exclude this extensions
+
+.env
+.dev
+
+# Exclude this folder
+public/
