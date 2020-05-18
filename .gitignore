@@ -5,6 +5,7 @@
 
 # Exclude this folder
 public/
+.vscode/
 
 # Eclude this files
 dev.start

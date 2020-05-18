@@ -55,13 +55,26 @@ watch this [link](https://www.digitalocean.com/community/tutorials/how-to-instal
         # Make a link between files
         sudo ln -s /etc/nginx/sites-available/local_php /etc/nginx/sites-enabled/
 
-    
-4. Active your nginx reverse-server
+4. Af the same folder, edit a file named default
+
+        # If you watch this config. section, 
+        # pass PHP scripts to FastCGI server
+        #
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+        
+            # With php-fpm (or other unix sockets):
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            # With php-cgi (or other tcp sockets):
+            # fastcgi_pass 127.0.0.1:9000;
+        }
+
+5. Active your nginx reverse-server
 
         # I not enjoy apache2, so
         $ sudo service nginx start | restart | stop 
 
-5. Ready to go (finally).
+6. Ready to go (finally).
 
     Wath the index file at [localhost/php_anti_storm](http://localhost/php_anti_storm)
 

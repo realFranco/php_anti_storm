@@ -1,9 +1,8 @@
-# move this folder into
-sudo cp -r php_anti_storm/ /var/www/html
-sudo chown -R $USER:$USER php_anti_storm
+# nginx 
+sudo service nginx start | stop | restart
+sudo service php7.4-fpm start | stop | status
 
-# now you can open this file into any code editor without
-# problems for sudo credentials after editions.
+sudo service php7.4-fpm restart && sudo service nginx restart
 
 ## php
 ## Start command ##
