@@ -13,7 +13,7 @@ CREATE TABLE Daily_Limit (
   "date"    timestamp(64) NOT NULL, 
   PRIMARY KEY (id_limit));
   
-CREATE TABLE "Transaction" (
+CREATE TABLE P2P_Transaction (
   id_transaction uuid NOT NULL, 
   amount         float4 NOT NULL, 
   description    varchar(32) NOT NULL, 
@@ -21,7 +21,7 @@ CREATE TABLE "Transaction" (
   id_bank_to     uuid NOT NULL, 
   PRIMARY KEY (id_transaction));
   
-CREATE TABLE "User" (
+CREATE TABLE P2P_User (
   id_user     uuid NOT NULL, 
   name        varchar(64) NOT NULL, 
   document_id int4 NOT NULL UNIQUE, 
@@ -29,9 +29,8 @@ CREATE TABLE "User" (
   
 ALTER TABLE Daily_Limit ADD CONSTRAINT acc_have_daily_lim FOREIGN KEY (id_bank) REFERENCES Bank_Acc (id_bank);
 
-ALTER TABLE Bank_Acc ADD CONSTRAINT have_acc FOREIGN KEY (id_user) REFERENCES "User" (id_user);
+ALTER TABLE Bank_Acc ADD CONSTRAINT have_acc FOREIGN KEY (id_user) REFERENCES P2P_User (id_user);
 
-ALTER TABLE "Transaction" ADD CONSTRAINT make_transcation FOREIGN KEY (id_bank_from) REFERENCES Bank_Acc (id_bank) ON UPDATE Cascade ON DELETE Cascade;
+ALTER TABLE P2P_Transaction ADD CONSTRAINT make_transcation FOREIGN KEY (id_bank_from) REFERENCES Bank_Acc (id_bank) ON UPDATE Cascade ON DELETE Cascade;
 
-ALTER TABLE "Transaction" ADD CONSTRAINT recieve_transcation FOREIGN KEY (id_bank_to) REFERENCES Bank_Acc (id_bank);
-
+ALTER TABLE P2P_Transaction ADD CONSTRAINT recieve_transcation FOREIGN KEY (id_bank_to) REFERENCES Bank_Acc (id_bank);

@@ -23,17 +23,21 @@ watch this [link](https://www.digitalocean.com/community/tutorials/how-to-instal
 2. If you clone this repo outside of the folder to serve flies using nginx.
 
         # The folder /var/www/html it is my actual folder to listen the localhost 
+
         $ sudo cp -r php_anti_storm/ /var/www/html # or mv instead of cp
-        #
+        
         # This command will let you use your code editor without sudo requirements
         # after editions on the project files
+
         $ sudo chown -R $USER:$USER php_anti_storm/
 
 3. Copy this tiny config file for nginx or follow the exact same config file 
         described at the **Before start** link.
 
         $ cd /etc/nginx/sites-avaliable/
+        
         $ sudo nano local_php
+
         # And paste this tiny config:
 
         server {
@@ -53,13 +57,15 @@ watch this [link](https://www.digitalocean.com/community/tutorials/how-to-instal
         # Save and close the file
 
         # Make a link between files
-        sudo ln -s /etc/nginx/sites-available/local_php /etc/nginx/sites-enabled/
 
-4. Af the same folder, edit a file named default
+        $ sudo ln -s /etc/nginx/sites-available/local_php /etc/nginx/sites-enabled/
+
+4. Af the same folder, edit a file named **default** and delete every
+    commentary from the **location** block.
 
         # If you watch this config. section, 
         # pass PHP scripts to FastCGI server
-        #
+        
         location ~ \.php$ {
             include snippets/fastcgi-php.conf;
         
@@ -69,18 +75,30 @@ watch this [link](https://www.digitalocean.com/community/tutorials/how-to-instal
             # fastcgi_pass 127.0.0.1:9000;
         }
 
-5. Active your nginx reverse-server
+        # Save and close the file
+
+5. Enable the PDO_PGSQL extension at the **php.ini** file
+
+        # Go to this folder in case you use php 7.4
+
+        $ cd /etc/php/7.4/fpm
+
+        $ sudo nano php.ini
+
+        # Find the next line and delete the semicolon ";"
+        # ;extension=pdo_pgsql 
+
+        extension=pdo_pgsql
+
+        # Save and close the file.
+
+6. Create a new php socket and start/reload the nginx server
+
+        $ sudo service php7.4-fpm restart
 
         # I not enjoy apache2, so
         $ sudo service nginx start | restart | stop 
 
-6. Ready to go (finally).
+7. Ready to go (finally).
 
-    Wath the index file at [localhost/php_anti_storm](http://localhost/php_anti_storm)
-
-## Note:
-
-For some reasong that I do not well (for the moment). 
-The config file present in this readme, it is not working well on 
-*Vivaldi Web Browser* when i request .php files.
-
+    Watch the index file at you local host [localhost/php_anti_storm](http://localhost/php_anti_storm)

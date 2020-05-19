@@ -1,3 +1,6 @@
+# php interactive shell
+$ php -a
+
 # nginx 
 sudo service nginx start | stop | restart
 sudo service php7.4-fpm start | stop | status
