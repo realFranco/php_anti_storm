@@ -1,5 +1,4 @@
 <?php
-
 // namespace PostgreSQLTutorial;
 /**
  * Create table in PostgreSQL from PHP demo
