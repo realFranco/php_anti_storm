@@ -1,6 +1,9 @@
 <?php
 // namespace PostgreSQLTutorial;
 /**
+ * Dev: f97gp1@gmail.com
+ * Date: May 23th, 2020
+ * 
  * Create table in PostgreSQL from PHP demo
  */
 class P2PCreateTable {
@@ -20,7 +23,7 @@ class P2PCreateTable {
     }
 
     /**
-     * Given a .sql file, execute the those staments
+     * Given a .sql file, execute those staments
      */
     public function manage_tables( $_file ){
         // echo $_file;

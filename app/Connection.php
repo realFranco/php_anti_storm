@@ -3,7 +3,10 @@
 // namespace PostgreSQLTutorial;
 
 /**
- * Represent the Connection
+ * Dev: f97gp1@gmail.com
+ * Date: May 23th, 2020
+ * 
+ * Class that represent a connection into the Postgres database.
  */
 class Connection {
 
