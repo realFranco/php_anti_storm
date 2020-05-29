@@ -1,14 +1,14 @@
 <?php
 
-// http://localhost/php_anti_storm/routes/p2p_user.php
-/*
-$out = array("name" => "f");
-$out = array("req" => $_REQUEST);
+/**
+ * Dev: f97gp1@gmail.com
+ * Date: May 23th, 2020
+ * 
+ * Router for the endpoint "/p2p_user.php"
+ */
 
-echo json_encode($out);*/
 require_once __DIR__.'/../app/Connection.php';
-require_once __DIR__.'/../app/P2P_insertion.php';
-require_once __DIR__.'/../app/P2P_user_query.php';
+require_once __DIR__.'/../model/P2P_user.php';
 
 header("Content-Type: Application/json");
 
@@ -23,7 +23,7 @@ $pdo = Connection::get()->connect();
  * of succes or an error object in case of failure.
  * @param type $pdo
  */
-function create_user( $pdo ){
+function create( $pdo ){
 
     if( htmlspecialchars($_POST["name"]) != null && 
         htmlspecialchars($_POST["document_id"]) != null ){
@@ -37,7 +37,7 @@ function create_user( $pdo ){
             "document_id"   => htmlspecialchars($_POST["document_id"])
         );
         // echo json_encode($out);
-        $p2p_insert = new P2PInsertContent( $pdo );
+        $p2p_insert = new P2P_user( $pdo );
         $out = $p2p_insert->insert_p2p_user( $row );
         
         $code = $out["status"] == "ok" ? 200 : 400;
@@ -47,7 +47,7 @@ function create_user( $pdo ){
         http_response_code( 404 );
         echo json_encode( array(
             'status' => 'bad',
-            'msg.' => 'params. from the request are not the corrects to proceed'
+            'msg.' => 'empty body, incorect request'
         ) );
     }
 }
@@ -61,7 +61,7 @@ function create_user( $pdo ){
  * 
  * @param name $pdo
  */
-function filter_user( $pdo ){
+function filter( $pdo ){
     
     if( htmlspecialchars( $_GET["document_id"] != null ) ){
 
@@ -71,10 +71,10 @@ function filter_user( $pdo ){
         ];
         // echo $query["document_id"];
 
-        $p2p_query = new P2PQueryContent( $pdo );
+        $p2p_query = new P2P_user( $pdo );
         $out = $p2p_query->find_by_document_id( $query["document_id"] );
 
-        $code = 400;
+        $code = 200;
         if( $out == False ){
             $out = [
                 'status' => 'bad',
@@ -96,6 +96,32 @@ function filter_user( $pdo ){
 }
 
 /**
+ * Delete a row from the table "p2p_user" if the "document_id"
+ * is present in the query, if not, all rows will be deleted.
+ * 
+ */
+function delete( $pdo){
+    $code = 200;
+    $document_id = $_REQUEST['document_id'];
+    $p2p_user_delete = new P2P_user( $pdo );
+
+    $out = $p2p_user_delete->p2p_user_delete( $document_id );
+
+    if( $out == False ){
+        $out = [
+            'status' => 'bad',
+            'code' => 'nil',
+            'message' => 'content searched by document_id not found'];
+        $code = 400;
+    }
+    
+    http_response_code( $code );
+    echo json_encode( $out );
+    // echo $document_id;
+}
+
+
+/**
  * Given the type of the Request, trigger/call the correct function.
  * 
  * @param type $REQ
@@ -104,16 +130,15 @@ function filter_user( $pdo ){
 function p2p_user_router( $REQ, $pdo ){
     switch( $REQ ){
         case "GET":
-            filter_user( $pdo );
+            filter( $pdo );
             break;
 
         case "POST":
-            create_user( $pdo );
+            create( $pdo );
             break;
 
         case "DELETE":
-            http_response_code(405);
-            echo json_encode( array("status" => "bad") );
+            delete( $pdo );
             break;
         
         default:
